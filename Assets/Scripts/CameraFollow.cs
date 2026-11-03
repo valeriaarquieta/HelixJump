@@ -4,19 +4,17 @@ public class CameraFollow : MonoBehaviour
 {
     public Transform target;
 
-    private Vector3 offset;
+    private float offset;
 
     void Start()
     {
-        offset = transform.position - target.position;
+        offset = transform.position.y - target.position.y;
     }
 
-    void LateUpdate()
+    void Update()
     {
-        transform.position = new Vector3(
-            target.position.x + offset.x,
-            transform.position.y,
-            target.position.z + offset.z
-        );
+       Vector3 actualPos = transform.position;
+       actualPos.y = target.transform.position.y + offset;
+       transform.position = actualPos;
     }
 }

@@ -1,26 +1,35 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
+
 public class BallController : MonoBehaviour
 {
-    public float speed = 10f;
+    public float impulseForce = 3f;
 
     private Rigidbody rb;
+    private bool ignoreNextCollision;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
 
-    void FixedUpdate()
+    private void OnCollisionEnter(Collision collision)
     {
-        float horizontal = Keyboard.current.aKey.isPressed ? -1 :
-        Keyboard.current.dKey.isPressed ? 1 : 0;
+        
+        if (ignoreNextCollision)
+        {
+            return;
+        }
+        GameManager.singleton.AddScore(1);
 
-        float vertical = Keyboard.current.sKey.isPressed ? -1 :
-        Keyboard.current.wKey.isPressed ? 1 : 0;
+        rb.linearVelocity = Vector3.zero;
+        rb.AddForce(Vector3.up * impulseForce, ForceMode.Impulse);
 
-        Vector3 movement = new Vector3(horizontal, 0, vertical);
+        ignoreNextCollision = true;
+        Invoke(nameof(AllowNextCollision), 0.2f);
+    }
 
-        rb.AddForce(movement * speed);
+    private void AllowNextCollision()
+    {
+        ignoreNextCollision = false;
     }
 }
