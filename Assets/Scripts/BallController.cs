@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BallController : MonoBehaviour
@@ -6,10 +7,12 @@ public class BallController : MonoBehaviour
 
     private Rigidbody rb;
     private bool ignoreNextCollision;
+    private Vector3 startPosition;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        startPosition = transform.position;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -19,7 +22,12 @@ public class BallController : MonoBehaviour
         {
             return;
         }
-        GameManager.singleton.AddScore(1);
+        //GameManager.singleton.AddScore(1);
+        DeathPart deathPart = collision.transform.GetComponent<DeathPart>();
+        if (deathPart)
+        {
+            GameManager.singleton.RestartLevel();
+        }
 
         rb.linearVelocity = Vector3.zero;
         rb.AddForce(Vector3.up * impulseForce, ForceMode.Impulse);
@@ -31,5 +39,9 @@ public class BallController : MonoBehaviour
     private void AllowNextCollision()
     {
         ignoreNextCollision = false;
+    }
+    public void ResetBall()
+    {
+        transform.position = startPosition;
     }
 }

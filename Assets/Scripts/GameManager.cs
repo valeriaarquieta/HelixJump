@@ -29,7 +29,9 @@ public class GameManager : MonoBehaviour
     }
     public void RestartLevel()
     {
-        
+         Debug.Log("rESTART");
+         singleton.currentScore = 0;
+         FindAnyObjectByType<BallController>().ResetBall();
     }
     public void AddScore(int scoreToAdd)
     {

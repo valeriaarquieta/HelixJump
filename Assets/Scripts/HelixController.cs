@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class HelixController : MonoBehaviour
@@ -5,9 +6,18 @@ public class HelixController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private Vector3 startPosition;
     private Vector2 lastTapPosition;
-    void Start()
+    public Transform topTransforms;
+    public Transform goalTransform;
+    public GameObject helixLevelPrefab;
+    public List<Stage> allStages = new List<Stage>();
+    private List<GameObject> spawnedLevels = new List<GameObject>();
+    public float helixDistance;
+
+    private void Awake()
     {
-       startPosition = transform.localEulerAngles; 
+      startPosition = transform.localEulerAngles; 
+      helixDistance = topTransforms.localPosition.y - (goalTransform.localPosition.y + 1f);  
+    //   LoadStage(0);
     }
 
     // Update is called once per frame
@@ -26,4 +36,8 @@ public class HelixController : MonoBehaviour
         lastTapPosition = currentTapPosition;
     }
 }
+public void LoadStage(int stageNumber)
+    {
+        
+    }
 }
