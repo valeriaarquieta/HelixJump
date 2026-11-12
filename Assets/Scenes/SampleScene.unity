@@ -972,6 +972,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24b7f7712472e404189524ebc7f2b7a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HelixController
+  topTransforms: {fileID: 263573702}
+  goalTransform: {fileID: 162893676}
+  helixLevelPrefab: {fileID: 1332111462878914145, guid: d9a04c47b26ad1c4892f353e83347290, type: 3}
+  allStages:
+  - {fileID: 11400000, guid: cb2f78c310c9f2743981cce7e5eed4c4, type: 2}
+  helixDistance: 0
 --- !u!1 &1654383946
 GameObject:
   m_ObjectHideFlags: 0
