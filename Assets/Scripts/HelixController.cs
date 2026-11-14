@@ -96,7 +96,7 @@ public void LoadStage(int stageNumber)
             while (deathparts.Count<stage.levels[i].deathPartCount)
             {
                 GameObject randomPart = leftParts[Random.Range(0,leftParts.Count)];
-                if (deathparts.Contains(randomPart))
+                if (!deathparts.Contains(randomPart))
                 {
                     randomPart.gameObject.AddComponent<DeathPart>();
                     deathparts.Add(randomPart);
